@@ -1,22 +1,26 @@
+<?php
+require_once 'conexao.php';
+?>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
     google.charts.load("current", {packages:['corechart']});
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
       var data = google.visualization.arrayToDataTable([
-        ["Mês", "Lucro-bruto"],
-        <?php
-        include 'conexao.php';
-        $sql = "SELECT * FROM grafico";
-        $buscar = mysqli_query($conexao, $sql);
+        ["Element", "Density", { role: "style" } ],
 
-        while ($dados = mysqli_fetch_array($buscar)){
-          $mes = $dados['Mês'];
-          $lucro = $dados['lucro-bruto'];
+        <?php
+        $sql = "SELECT FROM dados";
+        $busca = mysqli_query($conexao, $sql);
+
+        while($dados = mysqli_fetch_array($busca)){
+           $cidade = $dados['cidasde'];
+           $populacao = $dados['populacao'];
         
         ?>
-        ['<?php echo $mes ?>', '<?php echo $lucro ?>', #000000],
-        
+
+        ["<?php echo $cidade ?>", <?php echo $populacao ?>, "#000000"],
+
         <?php } ?>
       ]);
 
