@@ -1,5 +1,5 @@
 <?php
-require_once 'conexao.php';
+include 'conexao.php';
 ?>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
@@ -7,19 +7,19 @@ require_once 'conexao.php';
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
       var data = google.visualization.arrayToDataTable([
-        ["Element", "Density", { role: "style" } ],
+        ["Cidade", "População", { role: "style" } ],
 
         <?php
-        $sql = "SELECT FROM dados";
+        $sql = "SELECT * FROM dados";
         $busca = mysqli_query($conexao, $sql);
 
         while($dados = mysqli_fetch_array($busca)){
-           $cidade = $dados['cidasde'];
+           $cidade = $dados['cidade'];
            $populacao = $dados['populacao'];
         
         ?>
 
-        ["<?php echo $cidade ?>", <?php echo $populacao ?>, "#000000"],
+        ["<?php echo $cidade ?>", <?php echo $populacao ?>, "#0000FF"],
 
         <?php } ?>
       ]);
@@ -33,7 +33,7 @@ require_once 'conexao.php';
                        2]);
 
       var options = {
-        title: "Density of Precious Metals, in g/cm^3",
+        title: "População de cada Cidade",
         width: 600,
         height: 400,
         bar: {groupWidth: "95%"},
